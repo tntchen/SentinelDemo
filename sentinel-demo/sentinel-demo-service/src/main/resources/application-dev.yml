@@ -1,0 +1,37 @@
+mybatis-plus:
+    check-config-location: false
+    global-config:
+        banner: false
+        db-config:
+            table-underline: true
+    mapper-locations: classpath:/mappers/*Mapper.xml
+    type-aliases-package: com.nflow.sentinel.entity
+    type-enums-package: com.nflow.sentinel.enums
+
+spring:
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        type: com.alibaba.druid.pool.DruidDataSource
+        url: jdbc:mysql://127.0.0.1:3306/sentineldemo?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowPublicKeyRetrieval=true
+        username: root
+        password: 123456
+    cloud:
+        nacos:
+            discovery:
+                server-addr: 127.0.0.1:8848
+        sentinel:
+            eager: true # 是否饥饿加载。默认为 false 关闭
+            transport:
+                dashboard: 127.0.0.1:7070 # Sentinel 控制台地址
+
+dubbo:
+    scan:
+        base-packages: com.nflow.sentinel.dubbo.service
+    protocols:
+        dubbo:
+            name: dubbo
+            port: -1
+    registry:
+        address: spring-cloud://127.0.0.1:8848
+    cloud:
+        subscribed-services: ''
